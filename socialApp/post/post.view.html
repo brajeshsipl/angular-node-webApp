@@ -1,0 +1,34 @@
+<div class="col-xs-6">
+                <textarea  rows="4" cols="50" ng-model="vm.post"></textarea>
+                <input type="button" ng-model="post" value="Post" ng-click="vm.createPost()" />
+                <div class="m-l-lg panel b-a"  ng-repeat="post in allPosts" >
+                    <div class="panel-heading pos-rlt b-b b-light">
+                        <span class="arrow left"></span>
+                        <a href="">Post</a>
+                    </div>
+                    <div class="panel-body">
+                        <blockquote>
+                            <p>{{post.post_text}}</p>
+                            <small>{{post.first_name}} {{post.last_name}}</small>
+                            <a ng-if="post.post_user_id==globals.currentUser.logged_user_id" href="#" ng-click="vm.deletePost(post.post_id)">Delete</a>
+                        </blockquote>
+                        <span class="text-muted m-l-sm pull-right">
+                            {{post.post_datetime |timeAgo}}
+                        </span>
+                    </div>
+
+                    <div class="panel-heading pos-rlt"  ng-repeat="comment in post.comment">
+                        <p> <h5> {{comment.comment_text}} </h5> </p>  
+                        <span>Comment By:{{comment.first_name}} {{comment.last_name}}</span>
+                       <a ng-if="comment.comment_user_id==globals.currentUser.logged_user_id" href="#" ng-click="vm.deleteComment(comment.comment_id)">Delete</a>
+                        
+                        <span class="text-muted m-l-sm pull-right">
+                            {{comment.comment_datetime |timeAgo}}
+                        </span>
+                    </div>
+                    
+                    <textarea  rows="2" cols="50"  ng-model="post.comment_text"  placeholder="Enter you comment"></textarea>
+             
+                   <input type="button" name="Comment" value="Comment" ng-click="vm.saveComment(post.post_id,post.comment_text)" />
+                </div>
+            </div>
